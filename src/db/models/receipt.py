@@ -12,13 +12,14 @@ class Receipt(Base):
     __tablename__ = "receipt"
 
     id = Column(Integer, primary_key=True)
-    public_id = Column(UUID(as_uuid=True), unique=True, default=uuid.uuid4)
-    user_id = Column(Integer, ForeignKey("user.id"))
-    created_at = Column(DateTime(timezone=True), server_default=func.now())
-    total = Column(Float)
+    public_id = Column(UUID(as_uuid=True), unique=True, default=uuid.uuid4, index=True)
+    user_id = Column(Integer, ForeignKey("user.id"), nullable=False, index=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now(), index=True)
+
+    total = Column(Float, nullable=False)
     rest = Column(Float)
-    payment_type = Column(Enum(PaymentType))
-    payment_amount = Column(Float)
+    payment_type = Column(Enum(PaymentType), nullable=False)
+    payment_amount = Column(Float, nullable=False)
 
     products = relationship("ReceiptProduct", back_populates="receipt")
 

@@ -17,7 +17,7 @@ class PaymentSchema(BaseModel):
 
 
 class ReceiptCreateSchema(BaseModel):
-    products: conlist(ProductCreateSchema, min_length=1)
+    products: List[ProductCreateSchema]
     payment: PaymentSchema
 
 
